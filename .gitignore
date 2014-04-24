@@ -1,3 +1,4 @@
 
-/tasks.xml
-/controller/controller_example.php
+/html/controller/controller_example.php
+/html/model/bcrypt.php
+/html/tasks.xml
