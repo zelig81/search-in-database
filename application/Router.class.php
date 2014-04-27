@@ -1,5 +1,6 @@
 <?php
     namespace application;
+    use model\CheckAccess as CheckAccess;
     class Router {
         private $registry;
         private $controllerPath;
@@ -21,11 +22,21 @@
         }
 
         private function getController(){
-            if($this->registry->checkAccess == null){
-                $this->controller = 'Index';
-                $this->action = 'index';
+            if (!empty($_POST['user'])) {
+                if (ini_get('display_errors')) echo '<br>Router got not empty variable [user]:' . $_POST['user'];
+                $this->registry->access = CheckAccess::run($_POST['user'],$_POST['password']);
             }
-            elseif($this->registry->checkAccess === 'read'){
+            if(!isset($this->registry->access)) {
+                if (ini_get('display_errors')) echo '<br>Router: access is not set'; 
+                $this->controller = 'Index';
+                $this->action = 'login';
+            }
+            elseif ($this->registry->access == 'access denied') {
+                if (ini_get('display_errors')) echo '<br>Router: access is set to "access denied"'; 
+                $this->controller = 'Index';
+                $this->action = 'loginAfterWrongCredentials';
+            }
+            else{
                 $route = (empty($_POST['rt'])) ? '' : $_POST['rt'];
                 if(empty($route) === true){
                     $route = 'index';
@@ -46,7 +57,6 @@
                     $this->action = 'index';
                 }
             }
-            
             $this->file = $this->controllerPath . '/' . $this->controller . 'Controller.class.php';
 
         }
@@ -58,8 +68,8 @@
                 if (ini_get('display_errors')) echo '<br>Router: ' . $this->file . ' is not readeable';
                 die('404 not found');
             }
-            if (ini_get('display_errors')) echo '<br>router: try to load ' .$this->controller;
             $class = 'controller\\' . $this->controller . 'Controller';
+            if (ini_get('display_errors')) echo '<br>Router: try to load ' . $class;
             $controller = new $class($this->registry);
 
             if(is_callable(array($controller, $this->action)) === false){
@@ -68,6 +78,7 @@
             else{
                 $action = $this->action;
             }
+            if (ini_get('display_errors')) echo '<br>Router: with this action: ' . $action;
             $controller->$action();
 
         }

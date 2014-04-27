@@ -21,10 +21,6 @@
     
             include 'includes/init.php';
             $registry->router = new Router($registry);
-            if (ini_get('display_errors')) {
-                echo '<br>index.php: checkAccess is set to "read"';
-                //$registry->checkAccess = 'read';
-            }
             $registry->router->setPath(__SITE_PATH . '\controller');
             $registry->template = new Template($registry);
             $registry->router->loader();
@@ -32,4 +28,5 @@
 
         ?>
     </body>
+
 </html>

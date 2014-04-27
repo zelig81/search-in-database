@@ -1,0 +1,12 @@
+th {
+	background-color: #C2C2C2;
+	border-bottom: 3px solid black;
+	border-collapse: collapse;
+}
+td {
+    border-bottom: 1px solid #C2C2C2;
+}
+
+table {
+    width: 100%;
+}
