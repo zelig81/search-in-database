@@ -9,7 +9,8 @@
             $this->registry->template->welcome = 'Welcome to Otkazniki search engine';
             $db = new Database();
             $this->registry->template->tableNames = $db->getTableNames();
-            $this->registry->template->show('index');
+            $this->registry->template->access = $this->registry->access;
+            $this->registry->template->show('choosing_table');
             
         }
 

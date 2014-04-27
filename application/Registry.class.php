@@ -2,12 +2,7 @@
     namespace application;
     class Registry {
         private $vars = array();
-        private $constructed = false;
-
-        public function __construct(){
-            $this->$constructed = true;
-        }
-
+        
         public function __set($index, $value){
             $this->vars[$index] = $value;
         }
