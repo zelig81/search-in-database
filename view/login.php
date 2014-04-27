@@ -1,5 +1,4 @@
 <?php
-    echo '<h2>Login page</h2>';
     echo $message;
 ?>
 <form action="index.php" method = "post">

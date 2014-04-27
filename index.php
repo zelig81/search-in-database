@@ -7,6 +7,9 @@
     <head>
         <meta charset="utf-8" />
         <title></title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Search Page</title>
+		<script src="js/jquery-2.1.0.js"></script>
     </head>
     <body>
         <?php

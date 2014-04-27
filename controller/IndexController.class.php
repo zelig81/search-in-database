@@ -1,10 +1,14 @@
 <?php
     namespace controller;
     use application\BaseController as BaseController;
+    use model\Database as Database;
+
     class IndexController extends BaseController{
         function index(){
             if (ini_get('display_errors')) echo '<br>IndexController: constructing index page';
             $this->registry->template->welcome = 'Welcome to Otkazniki search engine';
+            $db = new Database();
+            $this->registry->template->tableNames = $db->getTableNames();
             $this->registry->template->show('index');
             
         }
