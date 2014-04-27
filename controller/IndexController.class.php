@@ -17,7 +17,7 @@
 
         function loginAfterWrongCredentials(){
             if (ini_get('display_errors')) echo '<br>IndexController: constructing login page after unsuccessful try';
-            $this->registry->template->message = '<p color="red">Wrong user or password. Please try again</p>';
+            $this->registry->template->message = '<p style="color:red">Wrong user or password. Please try again</p>';
             $this->registry->template->show('login');
         }
     }
