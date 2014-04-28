@@ -24,37 +24,32 @@
         private function getController(){
             if (!empty($_POST['user'])) {
                 if (ini_get('display_errors')) echo '<br>Router got not empty variable [user]:' . $_POST['user'];
-                $this->registry->access = CheckAccess::run($_POST['user'],$_POST['password']);
+                $_SESSION['access'] = CheckAccess::run($_POST['user'],$_POST['password']);
+                
             }
-            if(!isset($this->registry->access)) {
+            if(!isset($_SESSION['access'])) {
                 if (ini_get('display_errors')) echo '<br>Router: access is not set'; 
                 $this->controller = 'Index';
                 $this->action = 'login';
             }
-            elseif ($this->registry->access == 'access denied') {
+            elseif ($_SESSION['access'] == 'access denied') {
                 if (ini_get('display_errors')) echo '<br>Router: access is set to "access denied"'; 
                 $this->controller = 'Index';
                 $this->action = 'loginAfterWrongCredentials';
             }
             else{
-                $route = (empty($_POST['rt'])) ? '' : $_POST['rt'];
-                if(empty($route) === true){
-                    $route = 'index';
+                if(empty($_POST['rt']) === true){
+                    if (ini_get('display_errors')) echo '<br>Router: variable [rt] is not set - redirection to IndexController->index action'; 
+                    $this->controller = 'Index';
+                    $this->action = 'index';
                 }
                 else {
-                    $parts = explode('/', $route);
-                    $this->controller = $parts[0];
-                    if(isset($parts[1]) === true){
-                        $this->action = $parts[1];
+                    if (ini_get('display_errors')) echo '<br>Router: variable [rt] is set - redirection to ' . $_POST['rt'] . 'Controller'; 
+                    $this->controller = $_POST['rt'];
+                    if(isset($_POST['action']) === true){
+                        if (ini_get('display_errors')) echo '<br>Router: variable [rt] is set - redirection to ' . $_POST['rt'] . 'Controller with '. $_POST['action'] . ' action'; 
+                        $this->action = $_POST['action'];
                     }
-                }
-
-                if(empty($this->controller) === true){
-                    $this->controller = 'Index';
-                }
-
-                if(empty($this->action) === true){
-                    $this->action = 'index';
                 }
             }
             $this->file = $this->controllerPath . '/' . $this->controller . 'Controller.class.php';

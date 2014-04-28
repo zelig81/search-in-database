@@ -2,7 +2,7 @@
     echo $message;
 ?>
 <form action="index.php" method = "post">
-	<table>
+    <table>
 		<thead>
 			<tr><th colspan = 2>Login form</th></tr>
 		</thead>

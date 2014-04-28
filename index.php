@@ -1,5 +1,6 @@
 <?php
     namespace application;
+    session_start();
 ?>
 <!DOCTYPE html>
 

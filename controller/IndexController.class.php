@@ -5,11 +5,11 @@
 
     class IndexController extends BaseController{
         function index(){
-            if (ini_get('display_errors')) echo '<br>IndexController: constructing index page';
+            if (ini_get('display_errors')) echo '<br>IndexController: constructing choosing_table page';
             $this->registry->template->welcome = 'Welcome to Otkazniki search engine';
             $db = new Database();
             $this->registry->template->tableNames = $db->getTableNames();
-            $this->registry->template->access = $this->registry->access;
+            $this->registry->template->access = $_SESSION['access'];
             $this->registry->template->show('choosing_table');
             
         }
