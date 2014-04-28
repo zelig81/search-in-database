@@ -1,7 +1,7 @@
 <?php
     echo $message;
 ?>
-<form action="index.php" method = "post">
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method = "post">
     <table>
 		<thead>
 			<tr><th colspan = 2>Login form</th></tr>

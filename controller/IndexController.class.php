@@ -6,9 +6,14 @@
     class IndexController extends BaseController{
         function index(){
             if (ini_get('display_errors')) echo '<br>IndexController: constructing choosing_table page';
+            $this->registry->template->user = $_SESSION['user'];
+            $this->registry->template->show('header_logoff');
+
+
             $this->registry->template->welcome = 'Welcome to Otkazniki search engine';
             $db = new Database();
             $this->registry->template->tableNames = $db->getTableNames();
+            $db = NULL;
             $this->registry->template->access = $_SESSION['access'];
             $this->registry->template->show('choosing_table');
             
@@ -24,6 +29,14 @@
             if (ini_get('display_errors')) echo '<br>IndexController: constructing login page after unsuccessful try';
             $this->registry->template->message = '<p style="color:red">Wrong user or password. Please try again</p>';
             $this->registry->template->show('login');
+        }
+
+        function logoff(){
+            if (ini_get('display_errors')) echo '<br>IndexController: constructing login page after logoff';
+            session_destroy();
+            $this->registry->template->message = '<p>Please enter your user and password:</p>';
+            $this->registry->template->show('login');
+
         }
     }
 

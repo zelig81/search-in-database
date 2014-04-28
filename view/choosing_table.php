@@ -1,4 +1,4 @@
-<form action="index.php" method="post">
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
     <p>Please choose table name 
         <select name="chosenTable">
             <?php

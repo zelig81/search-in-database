@@ -23,8 +23,11 @@
 
         private function getController(){
             if (!empty($_POST['user'])) {
-                if (ini_get('display_errors')) echo '<br>Router got not empty variable [user]:' . $_POST['user'];
-                $_SESSION['access'] = CheckAccess::run($_POST['user'],$_POST['password']);
+                $user = htmlspecialchars($_POST['user']);
+                $password = htmlspecialchars($_POST['password']);
+                if (ini_get('display_errors')) echo '<br>Router got not empty variable [user]:' . $user;
+                $_SESSION['user'] = $user;
+                $_SESSION['access'] = CheckAccess::run($user, $password);
                 
             }
             if(!isset($_SESSION['access'])) {
@@ -44,11 +47,13 @@
                     $this->action = 'index';
                 }
                 else {
-                    if (ini_get('display_errors')) echo '<br>Router: variable [rt] is set - redirection to ' . $_POST['rt'] . 'Controller'; 
-                    $this->controller = $_POST['rt'];
+                    $rt = htmlspecialchars($_POST['rt']);
+                    if (ini_get('display_errors')) echo '<br>Router: variable [rt] is set - redirection to ' . $rt . 'Controller'; 
+                    $this->controller = $rt;
                     if(isset($_POST['action']) === true){
-                        if (ini_get('display_errors')) echo '<br>Router: variable [rt] is set - redirection to ' . $_POST['rt'] . 'Controller with '. $_POST['action'] . ' action'; 
-                        $this->action = $_POST['action'];
+                        $action = htmlspecialchars($_POST['action']);
+                        if (ini_get('display_errors')) echo '<br>Router: variable [rt] is set - redirection to ' . $rt . 'Controller with '. $action . ' action';
+                        $this->action = $action;
                     }
                 }
             }
