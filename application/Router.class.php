@@ -14,7 +14,6 @@
         }
 
         function setPath($controllerPath){
-            if (ini_get('display_errors')) echo '<br>Router: get to Router::setPath';
             if(is_dir($controllerPath) === false){
                 die('Invalid controller path `' . $controllerPath . '`');
             }
