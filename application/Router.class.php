@@ -24,10 +24,10 @@
             if (!empty($_POST['user'])) {
                 $user = htmlspecialchars($_POST['user']);
                 $password = htmlspecialchars($_POST['password']);
-                if (ini_get('display_errors')) echo '<br>Router got not empty variable [user]:' . $user;
                 $_SESSION['user'] = $user;
                 $_SESSION['access'] = CheckAccess::run($user, $password);
-                
+                echo '<br> acces = ' . $_SESSION['access'];
+                if (ini_get('display_errors')) echo '<br>Router got not empty variable [user]:' . $user;
             }
             if(!isset($_SESSION['access'])) {
                 if (ini_get('display_errors')) echo '<br>Router: access is not set'; 

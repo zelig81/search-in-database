@@ -15,20 +15,20 @@
             $this->registry->template->tableNames = $db->getTableNames();
             $db = NULL;
             $this->registry->template->access = $_SESSION['access'];
-            $this->registry->template->show('choosing_table');
+            $this->registry->template->show('page_choosing_table');
             
         }
 
         function login(){
             if (ini_get('display_errors')) echo '<br>IndexController: constructing login page';
             $this->registry->template->message = '<p>Welcome to Otkazniki search engine. Please enter your user and password:</p>';
-            $this->registry->template->show('login');
+            $this->registry->template->show('page_login');
         }
 
         function loginAfterWrongCredentials(){
             if (ini_get('display_errors')) echo '<br>IndexController: constructing login page after unsuccessful try';
             $this->registry->template->message = '<p style="color:red">Wrong user or password. Please try again</p>';
-            $this->registry->template->show('login');
+            $this->registry->template->show('page_login');
         }
 
         function logoff(){
